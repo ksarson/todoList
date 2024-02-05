@@ -9,21 +9,21 @@ const welcomeMessage = `<h2>Welcome to Your To-Do List App!</h2>
 const projectsFeature = 'Projects';
 const projectsUrl = './img/projectsIcon.png';
 const projectsDesc =
-    'Effortlessly organize and group tasks for efficient project management';
+    'Effortlessly organize and group tasks for efficient project management.';
 
 const tasksFeature = 'Tasks';
-const tasksDesc = 'Manage small, individual jobs with flexibility and ease';
+const tasksDesc = 'Manage small, individual jobs with flexibility and ease.';
 const tasksUrl = './img/tasksIcon.png';
 
 const scheduleFeature = 'Schedule';
 const scheduleDesc =
-    'Track timelines and deadlines for projects and tasks with precision';
+    'Track timelines and deadlines for projects and tasks with precision.';
 const scheduleUrl = './img/scheduleIcon.png';
 //#endregion
 
 function createWelcome() {
     const welcomeDiv = document.createElement('div');
-    welcomeDiv.classList.add('homepage-content', 'welcome-div');
+    welcomeDiv.classList.add('homepage-content', 'intro-div');
 
     const welcomeText = document.createElement('div');
     welcomeText.classList.add('welcome-text');

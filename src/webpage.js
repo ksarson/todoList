@@ -92,7 +92,7 @@ function initializeWebsite() {
     content.appendChild(createHeader());
     content.appendChild(createMain());
     content.appendChild(createFooter());
-    createHomepage();
+    createProjects();
 
     const homepageButton = document.querySelector('.homepage-button');
     homepageButton.addEventListener('click', () => {
