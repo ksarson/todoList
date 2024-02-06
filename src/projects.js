@@ -40,38 +40,97 @@ function createWidgets() {
     const widgetsDiv = document.createElement('div');
     widgetsDiv.classList.add('projects-content', 'projects-widgets-div');
 
-    widgetsDiv.appendChild(createCurrentWidget());
-    widgetsDiv.appendChild(createCompletedWidget());
+    widgetsDiv.appendChild(createWidget('Current Projects'));
+    widgetsDiv.appendChild(createWidget('Completed Projects'));
 
     return widgetsDiv;
 }
 
-function createCurrentWidget() {
-    const currentDiv = document.createElement('div');
-    currentDiv.classList.add('projects-widget-div', 'current-div');
+function createWidget(headerText) {
+    const headerDiv = document.createElement('div');
+    headerDiv.classList.add('projects-widget-div');
 
-    const currentText = document.createElement('div');
-    currentText.classList.add('welcome-text');
-    currentText.innerHTML = `<h2>Current Projects</h2>
-    <p>Current text</p>`;
+    const header = document.createElement('div');
+    header.classList.add(
+        `${headerText}-header`.replace(' ', '-').toLowerCase()
+    );
+    header.innerHTML = `<h2>${headerText}</h2>`;
 
-    currentDiv.appendChild(currentText);
+    headerDiv.appendChild(header);
+    headerDiv.appendChild(createList(headerText));
 
-    return currentDiv;
+    return headerDiv;
 }
 
-function createCompletedWidget() {
-    const completedDiv = document.createElement('div');
-    completedDiv.classList.add('projects-widget-div', 'completed-div');
+function createList(headerText) {
+    const newList = document.createElement('ul');
+    newList.classList.add(`${headerText}-list`.replace(' ', '-').toLowerCase());
+    newList.setAttribute(
+        'id',
+        `${headerText}-list`.replace(' ', '-').toLowerCase()
+    );
 
-    const completedText = document.createElement('div');
-    completedText.classList.add('welcome-text');
-    completedText.innerHTML = `<h2>Completed Projects</h2>
-    <p>Completed text</p>`;
+    return newList;
+}
 
-    completedDiv.appendChild(completedText);
+function addListItem() {
+    const currentProjectsList = document.getElementById(
+        'current-projects-list'
+    );
 
-    return completedDiv;
+    const newProjectItem = document.createElement('li');
+    newProjectItem.classList.add('project-list-item');
+    newProjectItem.textContent = 'New Project';
+
+    const itemActions = document.createElement('div');
+    itemActions.classList.add('list-item-actions');
+
+    // #region Complete Button
+    const completeButton = document.createElement('button');
+    completeButton.classList.add('complete-button');
+
+    const completeIcon = document.createElement('img');
+    completeIcon.src = './img/completeIcon.svg';
+    completeIcon.alt = 'Delete';
+    completeIcon.style.height = '24px';
+    completeIcon.style.width = '24px';
+
+    completeButton.appendChild(completeIcon);
+    // #endregion
+
+    // #region Edit Button
+    const editButton = document.createElement('button');
+    editButton.classList.add('edit-button');
+
+    const editIcon = document.createElement('img');
+    editIcon.src = './img/editIcon.svg';
+    editIcon.alt = 'Edit';
+    editIcon.style.height = '24px';
+    editIcon.style.width = '24px';
+
+    editButton.appendChild(editIcon);
+    // #endregion
+
+    // #region Delete Button
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('delete-button');
+
+    const trashBinIcon = document.createElement('img');
+    trashBinIcon.src = './img/trashIcon.png';
+    trashBinIcon.alt = 'Delete';
+    trashBinIcon.style.height = '24px';
+    trashBinIcon.style.width = '24px';
+
+    deleteButton.appendChild(trashBinIcon);
+    // #endregion
+
+    itemActions.appendChild(completeButton);
+    itemActions.appendChild(editButton);
+    itemActions.appendChild(deleteButton);
+    newProjectItem.appendChild(itemActions);
+    currentProjectsList.appendChild(newProjectItem);
+
+    return currentProjectsList;
 }
 
 function createProjects() {
@@ -80,6 +139,13 @@ function createProjects() {
     main.appendChild(createIntro());
     main.appendChild(createAddNewProject());
     main.appendChild(createWidgets());
+
+    const addNewProjectButton = document.querySelector(
+        '.add-new-project-button'
+    );
+    addNewProjectButton.addEventListener('click', () => {
+        addListItem();
+    });
 }
 
 export default createProjects;

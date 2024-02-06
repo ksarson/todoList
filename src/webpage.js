@@ -86,6 +86,13 @@ function createFooter() {
     return footer;
 }
 
+function clearContent() {
+    const main = document.getElementById('main');
+    while (main.firstChild) {
+        main.removeChild(main.firstChild);
+    }
+}
+
 function initializeWebsite() {
     const content = document.getElementById('content');
 
@@ -117,13 +124,6 @@ function initializeWebsite() {
         clearContent();
         createSchedule();
     });
-}
-
-function clearContent() {
-    const main = document.getElementById('main');
-    while (main.firstChild) {
-        main.removeChild(main.firstChild);
-    }
 }
 
 export default initializeWebsite;
