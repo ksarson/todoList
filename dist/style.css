@@ -1,0 +1,250 @@
+@font-face {
+    font-family: 'BreeSerif';
+    src: url('./fonts/Bree_Serif/BreeSerif-Regular.ttf');
+}
+
+:root {
+    --header-max-height: 160px;
+    --footer-max-height: 48px;
+    --off-white-green: #f7fffc;
+    --light-green: #9ec8b9;
+    --green: #5c8374;
+    --dark-green: #1b4242;
+    --dark-blue: #092635;
+}
+
+* {
+    font-family: 'BreeSerif', Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* MAIN */
+.main {
+    position: relative;
+    z-index: 1;
+    background-color: var(--off-white-green);
+    color: var(--dark-blue);
+    display: flex;
+    flex-direction: column;
+    flex: 10;
+    overflow-y: auto;
+    align-items: center;
+    justify-content: space-around;
+    max-height: calc(
+        100vh - calc(var(--header-max-height) + var(--footer-max-height))
+    );
+}
+
+/* HEADER */
+.header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
+    background-color: var(--light-green);
+    color: var(--dark-blue);
+    font-size: 36px;
+    min-height: 160px;
+    max-height: var(--header-max-height);
+}
+
+.header-image {
+    height: 64px;
+    width: 52px;
+}
+
+.header-text {
+    align-items: center;
+    display: flex;
+    gap: 24px;
+}
+
+.nav {
+    display: flex;
+}
+
+.nav-button {
+    background-color: transparent;
+    border: none;
+    color: var(--dark-blue);
+    font-size: 28px;
+    font-weight: 700;
+    height: 64px;
+    width: 200px;
+}
+
+.nav-button:hover {
+    background-color: var(--green);
+    cursor: pointer;
+    font-size: 32px;
+}
+
+/* HOME */
+.homepage-content {
+    display: flex;
+}
+
+.intro-div {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-width: 80%;
+    padding-top: 48px;
+}
+
+.features-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 12px;
+    padding-top: 48px;
+}
+
+.feature-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.feature-img {
+    height: 48px;
+    width: 48px;
+}
+
+.widgets-div {
+    flex: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    width: 80%;
+    min-height: 400px;
+    min-width: 600px;
+}
+
+.widget-div {
+    text-align: center;
+    background-color: var(--light-green);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border: var(--dark-green) solid 1px;
+    border-radius: 8px;
+    font-size: 24px;
+    height: 80%;
+    width: 40%;
+    min-width: 300px;
+}
+
+/* PROJECTS */
+.projects-content {
+    display: flex;
+}
+
+.add-new-project-button {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+    flex: 1;
+    min-width: 400px;
+    max-width: 80%;
+    margin-top: 24px;
+    color: white;
+    font-size: 18px;
+    background-color: var(--dark-green);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+.projects-widgets-div {
+    flex: 7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 64px;
+    max-height: 70%;
+    width: 90%;
+    min-width: 600px;
+}
+
+.projects-widget-div {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    overflow-y: auto;
+    background-color: var(--light-green);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border: var(--dark-green) solid 1px;
+    border-radius: 8px;
+    font-size: 24px;
+    gap: 12px;
+    height: 80%;
+    width: 45%;
+    min-width: 300px;
+}
+
+.current-projects-list,
+.completed-projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.project-list-item {
+    display: flex;
+    justify-content: space-around;
+}
+
+.list-item-actions {
+    display: flex;
+    gap: 16px;
+}
+
+.move-button,
+.edit-button,
+.delete-button {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+}
+
+.move-button:hover,
+.edit-button:hover,
+.delete-button:hover {
+    background-color: var(--green);
+    cursor: pointer;
+}
+
+/* FOOTER */
+.footer {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.5);
+    background-color: var(--light-green);
+    color: var(--dark-blue);
+    font-size: 18px;
+    min-height: 48px;
+    max-height: var(--footer-max-height);
+}
+
+.github-icon {
+    color: var(--dark-blue);
+    font-size: 24px;
+}
