@@ -1,7 +1,7 @@
+import { currentProjectsArray, completedProjectsArray } from './projectData';
 import createHomepage from './homepage';
 import createProjects from './projects';
 import createTasks from './tasks';
-import createSchedule from './schedule';
 
 function createHeader() {
     const header = document.createElement('header');
@@ -45,11 +45,6 @@ function createNav() {
     tasksButton.classList.add('nav-button', 'tasks-button');
     tasksButton.textContent = 'Tasks';
     nav.appendChild(tasksButton);
-
-    const scheduleButton = document.createElement('button');
-    scheduleButton.classList.add('nav-button', 'schedule-button');
-    scheduleButton.textContent = 'Schedule';
-    nav.appendChild(scheduleButton);
 
     return nav;
 }
@@ -117,12 +112,6 @@ function initializeWebsite() {
     tasksButton.addEventListener('click', () => {
         clearContent();
         createTasks();
-    });
-
-    const scheduleButton = document.querySelector('.schedule-button');
-    scheduleButton.addEventListener('click', () => {
-        clearContent();
-        createSchedule();
     });
 }
 

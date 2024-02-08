@@ -1,6 +1,4 @@
-//#region - Constants
-const currentProjectsArray = [];
-const completedProjectsArray = [];
+import { currentProjectsArray, completedProjectsArray } from './projectData';
 
 const projectsMessage = `<h2>Welcome to the Projects Page!</h2>
 Explore the heart of your productivity journey with our Projects feature. 
@@ -8,7 +6,6 @@ Seamlessly create, organize, and track your projects to bring your ideas to life
 Effortlessly manage tasks, collaborate with your team, and stay focused on your goals. 
 With intuitive project management tools, you're empowered to turn your visions into tangible achievements. 
 Start building, start collaborating - welcome to the Projects Page!`;
-//#endregion
 
 function createIntro() {
     const introDiv = document.createElement('div');
@@ -120,10 +117,16 @@ function addListItem() {
     itemActions.appendChild(editButton);
     itemActions.appendChild(deleteButton);
     newProjectItem.appendChild(itemActions);
-    currentProjectsList.appendChild(newProjectItem);
+    updateList(currentProjectsList);
     currentProjectsArray.push(newProjectItem);
 
     return currentProjectsList;
+}
+
+function updateList(projectsList) {
+    currentProjectsArray.forEach((e) => {
+        projectsList.appendChild(e);
+    });
 }
 
 function createButton(iconSrc, altText, buttonClass) {
@@ -153,24 +156,25 @@ function moveButtonHandler() {
         if (listItem.parentNode === currentList) {
             moveIcon.alt = 'Uncomplete';
             moveIcon.src = './img/xIcon.svg';
-            completedProjectsArray.push(listItem);
+            completedProjectsArray.push(clonedItem);
             currentProjectsArray.splice(
-                currentProjectsArray.indexOf(listItem),
+                currentProjectsArray.indexOf(clonedItem),
                 1
             );
             completedList.appendChild(clonedItem);
         } else if (listItem.parentNode === completedList) {
             moveIcon.alt = 'Complete';
             moveIcon.src = './img/completeIcon.svg';
-            currentProjectsArray.push(listItem);
+            currentProjectsArray.push(clonedItem);
             completedProjectsArray.splice(
-                completedProjectsArray.indexOf(listItem),
+                completedProjectsArray.indexOf(clonedItem),
                 1
             );
             currentList.appendChild(clonedItem);
         }
         listItem.remove();
-
+        console.log(currentProjectsArray);
+        console.log(completedProjectsArray);
         const clonedMoveButton = clonedItem.querySelector('.move-button');
         clonedMoveButton.addEventListener('click', moveButtonHandler);
         const clonedEditButton = clonedItem.querySelector('.edit-button');

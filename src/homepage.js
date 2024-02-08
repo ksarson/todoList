@@ -1,3 +1,5 @@
+import { currentProjectsArray, completedProjectsArray } from './projectData';
+
 //#region - Constants
 const welcomeMessage = `<h2>Welcome to Your To-Do List App!</h2>
     Embrace productivity with our feature-rich to-do list. Seamlessly create, manage, and prioritize tasks. 
@@ -62,38 +64,51 @@ function createWidgets() {
     const widgetsDiv = document.createElement('div');
     widgetsDiv.classList.add('homepage-content', 'widgets-div');
 
-    widgetsDiv.appendChild(createUpcomingWidget());
-    widgetsDiv.appendChild(createRecentlyClosedWidget());
+    widgetsDiv.appendChild(createWidget('Upcoming'));
+    widgetsDiv.appendChild(createWidget('Recently Closed'));
 
     return widgetsDiv;
 }
 
-function createUpcomingWidget() {
-    const upcomingDiv = document.createElement('div');
-    upcomingDiv.classList.add('widget-div', 'upcoming-div');
+function createWidget(headerText) {
+    const headerDiv = document.createElement('div');
+    headerDiv.classList.add('widget-div');
 
-    const upcomingText = document.createElement('div');
-    upcomingText.classList.add('welcome-text');
-    upcomingText.innerHTML = `<h2>Upcoming</h2>
-    <p>Upcoming text</p>`;
+    const header = document.createElement('div');
+    header.classList.add(
+        `${headerText}-header`.replace(' ', '-').toLowerCase()
+    );
+    header.innerHTML = `<h2>${headerText}</h2>`;
 
-    upcomingDiv.appendChild(upcomingText);
+    headerDiv.appendChild(header);
+    headerDiv.appendChild(createList(headerText));
+    if (headerText.toLowerCase().includes('upcoming')) {
+        for (let i = 0; i < 3; i++) {
+            if (currentProjectsArray[i]) {
+                headerDiv.appendChild(currentProjectsArray[i]);
+            }
+        }
+    }
+    if (headerText.toLowerCase().includes('closed')) {
+        for (let i = 0; i < 3; i++) {
+            if (completedProjectsArray[i]) {
+                headerDiv.appendChild(completedProjectsArray[i]);
+            }
+        }
+    }
 
-    return upcomingDiv;
+    return headerDiv;
 }
 
-function createRecentlyClosedWidget() {
-    const recentlyClosedDiv = document.createElement('div');
-    recentlyClosedDiv.classList.add('widget-div', 'upcoming-div');
+function createList(headerText) {
+    const newList = document.createElement('div');
+    newList.classList.add(`${headerText}-list`.replace(' ', '-').toLowerCase());
+    newList.setAttribute(
+        'id',
+        `${headerText}-list`.replace(' ', '-').toLowerCase()
+    );
 
-    const recentlyClosedText = document.createElement('div');
-    recentlyClosedText.classList.add('welcome-text');
-    recentlyClosedText.innerHTML = `<h2>Recently Closed</h2>
-    <p>Recently closed text</p>`;
-
-    recentlyClosedDiv.appendChild(recentlyClosedText);
-
-    return recentlyClosedDiv;
+    return newList;
 }
 
 function createHomepage() {
