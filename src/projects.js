@@ -1,4 +1,10 @@
 import { currentProjectsArray, completedProjectsArray } from './projectData';
+import {
+    attachEventListeners,
+    moveButtonHandler,
+    editButtonHandler,
+    deleteButtonHandler,
+} from './eventHandlers';
 
 const projectsMessage = `<h2>Welcome to the Projects Page!</h2>
 Explore the heart of your productivity journey with our Projects feature. 
@@ -6,6 +12,7 @@ Seamlessly create, organize, and track your projects to bring your ideas to life
 Effortlessly manage tasks, collaborate with your team, and stay focused on your goals. 
 With intuitive project management tools, you're empowered to turn your visions into tangible achievements. 
 Start building, start collaborating - welcome to the Projects Page!`;
+let count = 0;
 
 function createIntro() {
     const introDiv = document.createElement('div');
@@ -70,10 +77,25 @@ function createList(headerText) {
         `${headerText}-list`.replace(' ', '-').toLowerCase()
     );
 
+    if (headerText.toLowerCase().includes('current')) {
+        currentProjectsArray.forEach((item) => {
+            if (item) {
+                newList.appendChild(item);
+            }
+        });
+    }
+    if (headerText.toLowerCase().includes('complete')) {
+        completedProjectsArray.forEach((item) => {
+            if (item) {
+                newList.appendChild(item);
+            }
+        });
+    }
     return newList;
 }
 
 function addListItem() {
+    count++;
     const currentProjectsList = document.getElementById(
         'current-projects-list'
     );
@@ -83,7 +105,7 @@ function addListItem() {
 
     const textElement = document.createElement('div');
     textElement.classList.add('project-list-text');
-    textElement.textContent = 'New Project';
+    textElement.textContent = 'New Project ' + count;
 
     newProjectItem.appendChild(textElement);
 
@@ -117,8 +139,8 @@ function addListItem() {
     itemActions.appendChild(editButton);
     itemActions.appendChild(deleteButton);
     newProjectItem.appendChild(itemActions);
-    updateList(currentProjectsList);
     currentProjectsArray.push(newProjectItem);
+    updateList(currentProjectsList);
 
     return currentProjectsList;
 }
@@ -144,72 +166,13 @@ function createButton(iconSrc, altText, buttonClass) {
     return button;
 }
 
-function moveButtonHandler() {
-    const listItem = this.closest('.project-list-item');
-    if (listItem) {
-        const currentList = document.getElementById('current-projects-list');
-        const completedList = document.getElementById(
-            'completed-projects-list'
-        );
-        const clonedItem = listItem.cloneNode(true);
-        const moveIcon = clonedItem.querySelector('.move-button img');
-        if (listItem.parentNode === currentList) {
-            moveIcon.alt = 'Uncomplete';
-            moveIcon.src = './img/xIcon.svg';
-            completedProjectsArray.push(clonedItem);
-            currentProjectsArray.splice(
-                currentProjectsArray.indexOf(clonedItem),
-                1
-            );
-            completedList.appendChild(clonedItem);
-        } else if (listItem.parentNode === completedList) {
-            moveIcon.alt = 'Complete';
-            moveIcon.src = './img/completeIcon.svg';
-            currentProjectsArray.push(clonedItem);
-            completedProjectsArray.splice(
-                completedProjectsArray.indexOf(clonedItem),
-                1
-            );
-            currentList.appendChild(clonedItem);
-        }
-        listItem.remove();
-        console.log(currentProjectsArray);
-        console.log(completedProjectsArray);
-        const clonedMoveButton = clonedItem.querySelector('.move-button');
-        clonedMoveButton.addEventListener('click', moveButtonHandler);
-        const clonedEditButton = clonedItem.querySelector('.edit-button');
-        clonedEditButton.addEventListener('click', editButtonHandler);
-        const clonedDeleteButton = clonedItem.querySelector('.delete-button');
-        clonedDeleteButton.addEventListener('click', deleteButtonHandler);
-    }
-}
-
-function editButtonHandler() {
-    const listItem = this.closest('.project-list-item');
-    if (listItem) {
-        const textElement = listItem.querySelector('.project-list-text');
-        if (textElement) {
-            const newText = prompt('Enter new text:');
-            if (newText !== null) {
-                textElement.textContent = newText;
-            }
-        }
-    }
-}
-
-function deleteButtonHandler() {
-    const listItem = this.closest('.project-list-item');
-    if (listItem) {
-        listItem.remove();
-    }
-}
-
 function createProjects() {
     const main = document.getElementById('main');
 
     main.appendChild(createIntro());
     main.appendChild(createAddNewProject());
     main.appendChild(createWidgets());
+    attachEventListeners();
 
     const addNewProjectButton = document.querySelector(
         '.add-new-project-button'

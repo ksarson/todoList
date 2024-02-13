@@ -1,7 +1,5 @@
-import { currentProjectsArray, completedProjectsArray } from './projectData';
 import createHomepage from './homepage';
 import createProjects from './projects';
-import createTasks from './tasks';
 
 function createHeader() {
     const header = document.createElement('header');
@@ -40,11 +38,6 @@ function createNav() {
     projectsButton.classList.add('nav-button', 'projects-button');
     projectsButton.textContent = 'Projects';
     nav.appendChild(projectsButton);
-
-    const tasksButton = document.createElement('button');
-    tasksButton.classList.add('nav-button', 'tasks-button');
-    tasksButton.textContent = 'Tasks';
-    nav.appendChild(tasksButton);
 
     return nav;
 }
@@ -106,12 +99,6 @@ function initializeWebsite() {
     projectsButton.addEventListener('click', () => {
         clearContent();
         createProjects();
-    });
-
-    const tasksButton = document.querySelector('.tasks-button');
-    tasksButton.addEventListener('click', () => {
-        clearContent();
-        createTasks();
     });
 }
 

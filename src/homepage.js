@@ -1,4 +1,5 @@
 import { currentProjectsArray, completedProjectsArray } from './projectData';
+import { attachEventListeners } from './eventHandlers';
 
 //#region - Constants
 const welcomeMessage = `<h2>Welcome to Your To-Do List App!</h2>
@@ -82,20 +83,6 @@ function createWidget(headerText) {
 
     headerDiv.appendChild(header);
     headerDiv.appendChild(createList(headerText));
-    if (headerText.toLowerCase().includes('upcoming')) {
-        for (let i = 0; i < 3; i++) {
-            if (currentProjectsArray[i]) {
-                headerDiv.appendChild(currentProjectsArray[i]);
-            }
-        }
-    }
-    if (headerText.toLowerCase().includes('closed')) {
-        for (let i = 0; i < 3; i++) {
-            if (completedProjectsArray[i]) {
-                headerDiv.appendChild(completedProjectsArray[i]);
-            }
-        }
-    }
 
     return headerDiv;
 }
@@ -108,6 +95,25 @@ function createList(headerText) {
         `${headerText}-list`.replace(' ', '-').toLowerCase()
     );
 
+    if (headerText.toLowerCase().includes('upcoming')) {
+        for (let i = 0; i < 3; i++) {
+            if (currentProjectsArray[i]) {
+                newList.appendChild(currentProjectsArray[i]);
+            }
+        }
+    }
+    if (headerText.toLowerCase().includes('closed')) {
+        let maxItems = Math.min(3, completedProjectsArray.length);
+        for (
+            let i = completedProjectsArray.length - 1;
+            i >= 0 && maxItems > 0;
+            i--
+        ) {
+            newList.appendChild(completedProjectsArray[i]);
+            maxItems--;
+        }
+    }
+
     return newList;
 }
 
@@ -116,6 +122,7 @@ function createHomepage() {
 
     main.appendChild(createWelcome());
     main.appendChild(createWidgets());
+    attachEventListeners();
 }
 
 export default createHomepage;
